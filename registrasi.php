@@ -27,7 +27,11 @@
             $query = mysqli_query($conn, $sql);
 
             if($query > 0){
-                echo "<script>alert('Berhasil mendaftar. Silahkan login')</script>";
+                ?>
+                <script>alert('Berhasil Mendaftar. Silahkan login!')
+				document.location="login.php";
+                </script>
+                <?php
             }else{
                 echo "<script>alert('Gagal mendaftar. Harap ulangi pendaftaran')</script>";
             }
