@@ -43,7 +43,7 @@
 
             </div><br>
             <div>
-                <li><a class="dash1" href="../index.php"><img src="../gambar/home.svg" alt="Home">Dashboard</a></li><br>
+                <li><a class="dash1" href="../admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
                 <li><a  class="dash2" href=""><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
                 <li><a  class="dash3" href=""><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
             </div>
@@ -64,6 +64,10 @@
             <h2>Admin</h2>
             <p class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></p>
         </div>
+    </div>
+
+    <div>
+        <a href="buat_kelas.php"><button>Buat Kelas</button></a>
     </div>
 
     <script>
