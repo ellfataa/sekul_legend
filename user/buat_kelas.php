@@ -92,16 +92,6 @@
     </form>
 </center>
 
-    <!--<div class="row1">
-        <div>
-            <img src="../gambar/logo.svg" width="200px" style="margin: 50px;">
-        </div>
-        <div class="row1_2">
-            <h2>Admin</h2>
-            <p class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></p>
-        </div>
-    </div>-->
-
     <script>
         const toggle = document.querySelector('.toggle input');
         const nav = document.querySelector('nav ul');
