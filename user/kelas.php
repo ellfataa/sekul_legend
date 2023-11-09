@@ -1,5 +1,5 @@
 <?php
-    include '../koneksi.php';
+    include "../koneksi.php";
 
     //INISIALISASI SESSION
     session_start();
@@ -55,6 +55,23 @@
             <a class="logout" href="../logout.php">Logout</a>
         </div>
     </nav>
+
+    <div>
+        <div>
+            <?php
+                $sql = "select * from user where username = '" . $_SESSION['user'] . "' ";
+                $query = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_array($query);
+                    echo "
+                        <h1>Upload Kuis</h1>
+                        <a href='up_kuis.php?id_user=" . $row['id_user'] . "'> Upload Kuis </a>
+                        <h1>Upload Materi</h1>
+                        <a href='up_materi.php?id_user=" . $row['id_user'] . "'> Upload Materi </a>
+                    ";  
+            ?>
+        </div>
+    </div>
+
 
     <div>
         <h1 class="judul">Menampilkan Kelas</h1>
