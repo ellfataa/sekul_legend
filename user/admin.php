@@ -4,6 +4,8 @@
     //INISIALISASI SESSION
     session_start();
 
+    
+
     //MENGECEK APAKAH ADA USER YANG AKTIF, JIKA TIDAK ARAHKAN KE LOGIN.php
     if(!isset($_SESSION['user'])){
         header('Location: ../login.php');
@@ -16,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="home.css" type="text/css">
+    <link rel="stylesheet" href="user.css" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,8 +45,8 @@
 
             </div><br>
             <div>
-                <li><a class="dash1" href="../admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
-                <li><a  class="dash2" href=""><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
+                <li><a class="dash1" href="admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
+                <li><a  class="dash2" href="kelas.php"><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
                 <li><a  class="dash3" href=""><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
             </div>
         </ul>
@@ -61,13 +63,13 @@
             <img src="../gambar/logo.svg" width="200px" style="margin: 50px;">
         </div>
         <div class="row1_2">
-            <h2>Admin</h2>
-            <p class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></p>
+            <h2 class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></h2>
         </div>
     </div>
 
-    <div>
-        <a href="buat_kelas.php"><button>Buat Kelas</button></a>
+    <div class="row2">
+        <a class="buat-kelas" href="buat_kelas.php">Buat Kelas</a>
+        <a class="gabung-kelas" href="gabung_kelas.php">Gabung Kelas</a>
     </div>
 
     <script>
