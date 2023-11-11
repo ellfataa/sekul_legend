@@ -8,7 +8,7 @@
     if(!isset($_SESSION['user'])){
         header('Location: ../login.php');
     }
-//edit
+
     //MEMBUAT KELAS BARU
     if (isset($_POST['Submit'])) {
         $kd_kelas = $_POST['kd_kelas'];
