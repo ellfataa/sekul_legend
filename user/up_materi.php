@@ -8,24 +8,28 @@
     }
 
     //UPLOAD MATERI
-    include "../koneksi.php";
+    include '../koneksi.php';
 	
-    if (isset($_POST['Submit'])) {
+    if(isset($_POST['submit'])){
         $kd_materi = $_POST['kd_materi'];
         $judul = $_POST['judul'];
-        $direktori = '../materi/';
+        $id_user = $_GET['id_user'];
         $file_materi = $_FILES['file_materi']['name'];
-		move_uploaded_file($_FILES['file_materi']['tmp_name'], $direktori.$file_materi);
-    
-        $result = mysqli_query($conn, "INSERT INTO materi(kd_materi, judul, file_materi) VALUES('$kd_materi','$judul','$file_materi')");
-    
-        if($result){
-			?>
-				<script>alert('Materi Berhasil Ditambahkan!')
-				//document.location="kelas.php";
-				</script>
-			<?php
-		}
+        if($file_materi!=''){
+            $upload = '../materi/'.$file_materi;
+            move_uploaded_file($_FILES["file_materi"]["tmp_name"], $upload);
+        }
+
+        $insert = "insert into materi(kd_materi,judul,file_materi,id_user) values('$kd_materi','$judul','$file_materi','$id_user') ";
+        $query = mysqli_query($conn, $insert);
+        if($query){
+            ?>
+            <!-- HTML -->
+            <script>
+                alert('Data Berhasil Ditambahkan!');
+            </script>
+            <?php
+        }
     }
 ?>
 
@@ -77,7 +81,7 @@
 
 <center>
     <h1>Upload Materi</h1>
-    <form action="view_materi.php" method="POST" enctype="multipart/form-data">
+    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>Kode Materi</td>
@@ -94,7 +98,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" name="Submit" />
+                    <input type="submit" name="submit" />
                 </td>
             </tr>
         </table>
