@@ -85,8 +85,8 @@ label {
 .username,
 .password {
   font-family: "Poppins";
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   color: black;
   border: none;
   outline: none;
@@ -99,8 +99,8 @@ label {
 
 .role, option{
   font-family: "Poppins";
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   color: black;
   border: none;
   outline: none;
@@ -114,7 +114,7 @@ label {
 
 .btn-login {
   font-family: "Poppins";
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: white;
   border: none;
@@ -134,7 +134,7 @@ label {
 
 .btn-signup {
   font-family: "Poppins";
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: white;
   border: none;

@@ -73,7 +73,6 @@
     </div>
 
     <div class="row2">
-        <a class="buat-kelas" href="buat_kelas.php">Buat Kelas</a>
         <a class="gabung-kelas" href="gabung_kelas.php">Gabung Kelas</a>
     </div>
 

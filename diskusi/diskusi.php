@@ -18,14 +18,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="users.css" type="text/css">
+    <link rel="stylesheet" href="discusion.css" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
+<nav>
         <div class="toggle">
             <input type="checkbox" />
             <span></span>
@@ -45,8 +45,8 @@
 
             </div><br>
             <div>
-                <li><a class="dash1" href="admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
-                <li><a  class="dash2" href="kelas.php"><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
+                <li><a class="dash1" href="../index.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
+                <li><a  class="dash2" href="../user/kelas.php"><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
                 <li><a  class="dash3" href="https://calendar.google.com/"><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
             </div>
         </ul>
@@ -58,23 +58,35 @@
         </div>
     </nav>
 
-    <div class="row1">
-        <div>
-            <img src="../gambar/logo.svg" width="200px" style="margin: 50px;">
-        </div>
-        <div class="row1-2">
-            <h2 class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></h2>
-            <p>Selamat datang di website Sekul Legend. Website Sekul Legend adalah sebuah
-                platform website yang menyediakan media pembelajaran bagi guru dan siswanya 
-                dalam memenuhi kebutuhan pendidikan. Di dalam Sekul Legend terdapat berbagai macam menu, 
-                seperti kelas, kuis, materi, dan diskusi
-            </p>
-        </div>
-    </div>
-
     <div class="row2">
-        <a class="buat-kelas" href="buat_kelas.php">Buat Kelas</a>
-        <a class="gabung-kelas" href="gabung_kelas.php">Gabung Kelas</a>
+        <a href="tambah_topik.php">Tambah Topik</a><br><br>
+        <h2>Daftar Topik</h2>
+        <?php
+            if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+                $sql = "SELECT id, judul, tanggal from topik INNER JOIN user ON topik.id_user = user.id_user ORDER BY tanggal DESC";
+                $query = mysqli_query($conn, $sql);
+            ?>
+            <?php
+            while($row = mysqli_fetch_array($query)){?>
+            <div>
+                <div>
+                    
+                </div>
+            </div>
+            <figure>
+                <blockquote class="blockquote">
+                    <p>
+                        <a href="lihat_topik.php?id=<?php echo $row['id']; ?>"><?php echo htmlentities($row['judul']); ?></a>
+                    </p>
+                </blockquote>
+                <figcaption>
+                    Tanggal buat: <?php echo htmlentities($row['tanggal']); ?><br><br>
+                </figcaption>
+            </figure>
+            <?php
+                }
+            }
+        ?>
     </div>
 
     <script>

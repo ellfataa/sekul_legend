@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi</title>
 
-    <link rel="stylesheet" href="logres.css" type="text/css">
+    <link rel="stylesheet" href="reslog.css" type="text/css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +28,11 @@
             $query = mysqli_query($conn, $sql);
 
             if($query > 0){
-                echo "<script>alert('Berhasil mendaftar. Silahkan login')</script>";
+                ?>
+                <script>alert('Berhasil Mendaftar. Silahkan login!')
+				document.location="login.php";
+                </script>
+                <?php
             }else{
                 echo "<script>alert('Gagal mendaftar. Harap ulangi pendaftaran')</script>";
             }

@@ -1,14 +1,35 @@
 <?php
-    include '../koneksi.php';
-
     //INISIALISASI SESSION
     session_start();
-
-    
 
     //MENGECEK APAKAH ADA USER YANG AKTIF, JIKA TIDAK ARAHKAN KE LOGIN.php
     if(!isset($_SESSION['user'])){
         header('Location: ../login.php');
+    }
+
+    //UPLOAD MATERI
+    include '../koneksi.php';
+	
+    if(isset($_POST['submit'])){
+        $kd_materi = $_POST['kd_materi'];
+        $judul = $_POST['judul'];
+        $id_user = $_GET['id_user'];
+        $file_materi = $_FILES['file_materi']['name'];
+        if($file_materi!=''){
+            $upload = '../materi/'.$file_materi;
+            move_uploaded_file($_FILES["file_materi"]["tmp_name"], $upload);
+        }
+
+        $insert = "insert into materi(kd_materi,judul,file_materi,id_user) values('$kd_materi','$judul','$file_materi','$id_user') ";
+        $query = mysqli_query($conn, $insert);
+        if($query){
+            ?>
+            <!-- HTML -->
+            <script>
+                alert('Data Berhasil Ditambahkan!');
+            </script>
+            <?php
+        }
     }
 ?>
 
@@ -17,8 +38,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-    <link rel="stylesheet" href="users.css" type="text/css">
+    <title>Materi Pembelajaran</title>
+    <link rel="stylesheet" href="materi.css" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +66,7 @@
 
             </div><br>
             <div>
-                <li><a class="dash1" href="admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
+                <li><a class="dash1" href="../index.php"><img src="../gambar/home.svg" alt="Home">Dashboard</a></li><br>
                 <li><a  class="dash2" href="kelas.php"><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
                 <li><a  class="dash3" href="https://calendar.google.com/"><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
             </div>
@@ -58,24 +79,31 @@
         </div>
     </nav>
 
-    <div class="row1">
-        <div>
-            <img src="../gambar/logo.svg" width="200px" style="margin: 50px;">
-        </div>
-        <div class="row1-2">
-            <h2 class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></h2>
-            <p>Selamat datang di website Sekul Legend. Website Sekul Legend adalah sebuah
-                platform website yang menyediakan media pembelajaran bagi guru dan siswanya 
-                dalam memenuhi kebutuhan pendidikan. Di dalam Sekul Legend terdapat berbagai macam menu, 
-                seperti kelas, kuis, materi, dan diskusi
-            </p>
-        </div>
-    </div>
-
-    <div class="row2">
-        <a class="buat-kelas" href="buat_kelas.php">Buat Kelas</a>
-        <a class="gabung-kelas" href="gabung_kelas.php">Gabung Kelas</a>
-    </div>
+    <center>
+        <h1>Upload Materi</h1>
+        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Kode Materi</td>
+                    <td><input type="text" name="kd_materi" /></td>
+                </tr>
+                <tr>
+                    <td>Judul Materi</td>
+                    <td><input type="text" name="judul" /></td>
+                </tr>
+                <tr>
+                    <td>Input File</td>
+                    <td><input type="file" name="file_materi" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
 
     <script>
         const toggle = document.querySelector('.toggle input');
