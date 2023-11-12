@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="users.css" type="text/css">
+    <link rel="stylesheet" href="home.css" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,9 +45,9 @@
 
             </div><br>
             <div>
-                <li><a class="dash1" href="admin.php"><img src="../gambar/home.svg" alt="Home">Home</a></li><br>
-                <li><a  class="dash2" href="kelas.php"><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
-                <li><a  class="dash3" href="https://calendar.google.com/"><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
+                <li><a class="dash1" href="../index.php"><img src="../gambar/home.svg" alt="Home">Dashboard</a></li><br>
+                <li><a  class="dash2" href=""><img src="../gambar/kelas.svg" alt="Kelas">Kelas</a></li><br>
+                <li><a  class="dash3" href=""><img src="../gambar/kalender.svg" alt="Kalender">Kalender</a></li>
             </div>
         </ul>
 
@@ -62,13 +62,9 @@
         <div>
             <img src="../gambar/logo.svg" width="200px" style="margin: 50px;">
         </div>
-        <div class="row1-2">
-            <h2 class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></h2>
-            <p>Selamat datang di website Sekul Legend. Website Sekul Legend adalah sebuah
-                platform website yang menyediakan media pembelajaran bagi guru dan siswanya 
-                dalam memenuhi kebutuhan pendidikan. Di dalam Sekul Legend terdapat berbagai macam menu, 
-                seperti kelas, kuis, materi, dan diskusi
-            </p>
+        <div class="row1_2">
+            <h2>Admin</h2>
+            <p class="isirow2">Selamat Datang, <?php echo $_SESSION['user']; ?></p>
         </div>
     </div>
 
