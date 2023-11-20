@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis</title>
-    <link rel="stylesheet" href="quiz.css" type="text/css">
+    <!--<link rel="stylesheet" href="quiz.css" type="text/css">-->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,30 +59,67 @@
 
     <div class="soalKuis">
     <h1>Kuis</h1>
-        <form action="hasil_kuis.php" method="post">
-            <?php
-                try{
-                    $sql = mysqli_query($conn, "SELECT * FROM soal_kuis ORDER BY rand() limit 50");
-                    echo '<ol>';
-                    while ($soal_kuis = $sql->fetch_array()) {
-                        echo '<li>';
-                        echo htmlentities($soal_kuis['deskripsi']);
+    <?php
+if(isset($_POST['submit'])){
+    $judul_soal = $_POST['judul_soal'];
+    
+    // Insert judul soal
+    $insert_soal = mysqli_query($conn, "INSERT INTO soal (id_soal, judul_soal) VALUES ('', '$judul_soal')");
+    
+    if ($insert_soal) {
+        $id_soal = mysqli_insert_id($conn); // Mendapatkan ID terakhir yang dimasukkan
 
-                        $sql2 = mysqli_query($conn, "SELECT * FROM jawaban_kuis WHERE id_soal='".$soal_kuis['id_soal']."' ORDER BY rand()");
-                        echo '<ol type="A">';
-                        while ($jawaban_kuis = $sql2->fetch_array()) {
-                            echo '<li>';
-                            echo '<input type="radio" name="jawaban['.$soal_kuis['id_soal'].']" value="'.$jawaban_kuis['id_jawaban'].'">'; //perhatikan name input radio nya, beda-beda untuk tiap pilihan jawaban
-                            echo htmlentities($jawaban_kuis['deskripsi']);
-                            echo '</li>';
-                        }
-                        echo '</ol><br>';
-                        echo '</li>';       
-                    }
-                    echo '</ol>';
-                }catch(Exception $e){
-                    echo "Gagal menampilkan pertanyaan";
+        // Loop untuk pertanyaan
+        for ($i = 1; $i <= 5; $i++) {
+            $pertanyaan = $_POST['pertanyaan'.$i];
+            $skor = $_POST['skor'.$i];
+
+            // Insert pertanyaan
+            $insert_pertanyaan = mysqli_query($conn, "INSERT INTO pertanyaan (id_pertanyaan, id_soal, deskripsi, skor) VALUES ('', '$id_soal', '$pertanyaan', '$skor')");
+            
+            if ($insert_pertanyaan) {
+                $id_pertanyaan = mysqli_insert_id($conn); // Mendapatkan ID pertanyaan terakhir yang dimasukkan
+
+                // Loop untuk jawaban
+                for ($j = 1; $j <= 4; $j++) {
+                    $jawaban = $_POST['jawaban'.$i.$j];
+                    $benar = $_POST['benar'.$j];
+
+                    // Insert jawaban
+                    $insert_jawaban = mysqli_query($conn, "INSERT INTO jawaban (id_jawaban, id_pertanyaan, deskripsi, benar) VALUES ('', '$id_pertanyaan', '$jawaban', '$benar')");
+
+                    // Handle errors for $insert_jawaban if needed
                 }
+            } else {
+                // Handle errors for $insert_pertanyaan if needed
+            }
+        }
+    } else {
+        // Handle errors for $insert_soal if needed
+    }
+}
+?>
+
+        <form action="" method="post">
+            <label for="judul_soal">Judul Soal/Kuis</label><br>
+            <input type="text" name="judul_soal" id="judul_soal"><br><br>
+            <?php
+            for($i=1;$i<=5;$i++){
+                echo "<hr>";
+                echo "<h3>Pertanyaan ".$i."</h3>";
+                echo "<label for='pertanyaan".$i."'>Pertanyaan ".$i."</label><br>";
+                echo "<input type='text' name='pertanyaan".$i."' id='pertanyaan".$i."'><br>";
+                echo "<label for='skor".$i."'>Skor ".$i."</label><br>";
+                echo "<input type='text' name='skor".$i."' id='skor".$i."'><br>";
+                $j=1;
+                while($j<=4){
+                    echo "<label for='jawaban".$j."'>Jawaban ".$j."</label><br>";
+                    echo "<input type='text' name='jawaban".$i.$j."' id='jawaban".$j."'><br>";
+                    echo "<label for='benar".$j."'>Benar ".$j."</label><br>";
+                    echo "<input type='number' name='benar".$j."' id='benar".$j."'><br><br>";
+                    $j++;
+                }
+            }
             ?>
             <input type="submit" name="submit" value="Kirim Jawaban">
         </form>

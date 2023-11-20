@@ -1,49 +1,40 @@
 <?php
-    //INISIALISASI SESSION
-    session_start();
-
-    //MENGECEK APAKAH ADA USER YANG AKTIF, JIKA TIDAK ARAHKAN KE LOGIN.php
-    if(!isset($_SESSION['user'])){
-        header('Location: ../login.php');
-    }
-
-    //UPLOAD MATERI
-    include '../koneksi.php';
+    include "../koneksi.php";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Kuis</title>
-</head>
-<body>
-    <h1>Hasil Kuis</h1>
+<html>
+    <head>
+        <title>Hasil Kuis</title>
+    </head>
+    <body>
     <?php
-        if(empty($_POST['jawaban_kuis']) === false){
-            echo '<ol>';
-            $totalSkor = 0;
-            foreach($_POST['jawaban_kuis'] as $key => $value){
-                //QUERY SOAL
-                $data_soal = mysqli_query($conn, "SELECT * FROM soal_kuis WHERE id_soal = :id_soal ");
-                $soal_kuis = mysqli_fetch_array($data_soal);
-                echo '<li>'.htmlentities($soal_kuis['deskripsi']);
-
-                //QUERY JAWABAN
-                $data_jawaban = mysqli_query($conn, "SELECT * FROM jawaban_kuis WHERE id_jawaban = :id_jawaban ");
-                $jawaban_kuis = mysqli_fetch_array($data_jawaban);
-                if($jawaban_kuis['benar'] == 1){
-                    echo ' <strong>(Benar)</strong>';
-                    $totalSkor += $soal_kuis['skor'];        
-                }else{
-                    echo ' <strong>(Salah)</strong>';
-                }
-                echo '</li>';
-            echo '</ol>';
+    if (empty($_POST['jawaban']) === true) {
+        echo '<p>Anda belum menjawab pertanyaan</p>';
+        exit();
+    }else{
+        $totalSkor = 0;
+        echo '<h1>Hasil Kuis</h1>';
+        foreach ($_POST['jawaban'] as $idPertanyaan => $idJawaban) {
+            $select = mysqli_query($conn, "SELECT * FROM pertanyaan WHERE id_pertanyaan='$idPertanyaan'");
+            $row = mysqli_fetch_array($select);
+            echo "<ul>";
+            echo "<li>" . $row['deskripsi'] . "</li>";
+            $select2 = mysqli_query($conn, "SELECT * FROM jawaban WHERE id_jawaban='$idJawaban'");
+            $row2 = mysqli_fetch_array($select2);
+            echo "<p>Jawaban Anda: " . $row2['deskripsi'] . "</p>";
+            if ($row2['benar'] == 1) {
+                echo "<p style='color:green'>Benar</p>";
+                $totalSkor += $row['skor'];
+            } else {
+                echo "<p style='color:red'>Salah</p>";
             }
-            echo '<h3>Total Skor: '.$totalSkor.'</h3>';
+            echo "</ul>";
         }
+        $totalSkor = $totalSkor*20;
+        echo '<h1>Selamat Skor Anda: '.$totalSkor.'</h1>';
+    }
+        
     ?>
-</body>
+    </body>
 </html>
