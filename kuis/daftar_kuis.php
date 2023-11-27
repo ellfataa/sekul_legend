@@ -1,3 +1,12 @@
+<?php
+    include "../koneksi.php";
+    session_start();
+
+    if(!isset($_SESSION['user'])){
+        header('Location: ../login.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,3 +32,18 @@
                     echo "</tr>";
                 }
             ?>
+
+        </table>
+        <?php
+            $sql = "select * from user where username = '" . $_SESSION['user'] . "' ";
+            $query = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_array($query);
+                echo "
+                    <div>
+                        <h2>Upload Kuis</h2><hr>
+                        <a href='../kuis/up_kuis.php?id_user=" . $row['id_user'] . "'> Upload Kuis </a>
+                    </div>
+                ";
+        ?>
+    </body>
+</html>

@@ -64,7 +64,8 @@ if(isset($_POST['submit'])){
     $judul_soal = $_POST['judul_soal'];
     
     // Insert judul soal
-    $insert_soal = mysqli_query($conn, "INSERT INTO soal (id_soal, judul_soal) VALUES ('', '$judul_soal')");
+    $id_user = $_GET['id_user'];
+    $insert_soal = mysqli_query($conn, "INSERT INTO soal (id_soal, judul_soal, id_user) VALUES ('', '$judul_soal', '$id_user')");
     
     if ($insert_soal) {
         $id_soal = mysqli_insert_id($conn); // Mendapatkan ID terakhir yang dimasukkan
@@ -121,7 +122,7 @@ if(isset($_POST['submit'])){
                 }
             }
             ?>
-            <input type="submit" name="submit" value="Kirim Jawaban">
+            <input type="submit" name="submit" value="Kirim Kuis">
         </form>
     </div>
 
